@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        /* 색 계속 변화 */
+        #change {
+            padding: 210px;
+            color: #eeeeee;
+            font-family: "League Gothic", Impact, sans-serif;
+            text-transform: uppercase;
+            font-size: 210px;
+
+            /* 3초 간격으로 원하는 색으로 점진적 변화 무한 */
+            animation: color-change 3s infinite;
+        }
+
+        @keyframes color-change {
+            0% {
+                color: red;
+            }
+            50% {
+                color: blue;
+            }
+            80% {
+                color: seagreen;
+            }
+            100% {
+                color: red;
+            }
+        }
+
+        /* 하이라이팅 기능 포지션을 relative로 설정해야
+        글자의 상대 위치에 따른 배경색을 이용해 하이라이팅 효과를 넣을 수 있다.*/
+        .HL {
+            position: relative;
+        }
+
+        /* 선택자의 before를 다른 것으로 바꾸면 스크롤에 따른 효과를 줄 수 있을 것으로 기대됨*/
+        .HL::before {
+            content: "";
+            display: inline-block;
+            position: absolute;
+            width: 60px;
+            height: 100%;
+            z-index: -1;
+            /* Place the pseudo element right under the content */
+            top: 0;
+            left: 0;
+            background: linear-gradient(to top, red 50%, transparent 50%);
+            animation-name: highlight;
+            animation-duration: 1.5s;
+            animation-direction: alternate;
+        }
+
+        @keyframes highlight {
+            0% {
+                opacity: 0;
+                width: 0;
+            }
+
+            50% {
+                opacity: 1;
+                width: 60px;
+            }
+
+        }
+
+        /* shadow를 이용한 stroke 효과 
+        장점 : 어느 브라우져에서나 효과가 적용됨 단점: px이 1을 초과했을 때 뭉개짐 현상*/
+        .stroke-text{
+            font-size: 50px;
+            color:white;
+            text-shadow:3px 3px 0 red,-3px 3px 0 red,3px -3px 0 red,-3px -3px 0 red
+            ,3px 0 0 red,0 3px 0 red,-3px 0 0 red,0 -3px 0 red;
+        }
+
+        /* webkit을 사용한 stroke 효과
+        장점 : 편함 단점 : 사이즈가 작을 때 뭉개짐*/
+        .stroke{
+            font-size: 100px;
+            color:#eeeeee;
+            -webkit-text-stroke-width: 3px;
+            -webkit-text-stroke-color: yellow;
+        }
+    </style>
+    </head>
+    
+    <body>
+        <ol id="lecture">
+            <li id="change">HTML</li>
+            <li>CSS
+                <ol>
+                    <li class="HL">selector</li>
+                    <li class="stroke-text smooth-16">declaration</li>
+                </ol>
+            </li>
+            <li class="stroke">JavaScript</li>
+        </ol>
+    </body>
+    
+    </html>
